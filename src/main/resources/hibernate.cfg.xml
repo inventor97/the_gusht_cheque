@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/theMeat</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">Sayfulloyev97</property>
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+        <mapping class="com.inventor.entities.DeleveryService"/>
+        <mapping class="com.inventor.entities.ClientEntity"/>
+        <mapping class="com.inventor.entities.CousineEntity"/>
+        <mapping class="com.inventor.entities.DeleveryDataEntity"/>
+        <mapping class="com.inventor.entities.FoodFamilyEntity"/>
+        <mapping class="com.inventor.entities.FoodsEntity"/>
+    </session-factory>
+</hibernate-configuration>

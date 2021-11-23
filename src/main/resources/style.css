@@ -1,0 +1,150 @@
+#leftBkg {
+    -fx-background-image: url("Kebab.jpg");
+    -fx-background-position: left;
+    -fx-background-size: cover;
+}
+#bkg {
+    -fx-background-image: url(main.jpg);
+    -fx-background-size: cover;
+    -fx-background-position: right;
+}
+#onBkg {
+    -fx-background-color: linear-gradient(to top left, rgba(0, 0, 0, 0.5) , rgba(34,34,34,1) 70%);
+}
+.button:hover {
+    -fx-cursor: hand;
+}
+
+.button,
+.radio-button,
+.label,
+.text-area,
+.text-field,
+.choice-box {
+    -fx-text-fill: #222222;
+    -fx-font-family: "Roboto-Regular";
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+#leftSideBar {
+    -fx-background-color: linear-gradient(to top right, rgba(0, 0, 0, 0.5) , rgba(34,34,34,1) 70%);
+}
+#clientForm,
+#orderForm,
+#orderFoodForm,
+#deliveryForm {
+    -fx-background-color: linear-gradient(to right, rgba(225,225, 225, 0.8), #b2b2b2);
+}
+.list-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb,
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: transparent;
+}
+.list-view .scroll-bar:horizontal,
+.table-view .scroll-bar:horizontal,
+.table-view .scroll-bar:vertical,
+.list-view .scroll-bar:vertical {
+    -fx-font-size: 1px;
+    -fx-background-color: transparent;
+}
+.table-view, .column-header, .filler, #editingPanel {
+    -fx-background-color: #e5e5e5;
+
+}
+.table-view {
+    -fx-font-family: "Roboto-Regular";
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-selection-bar: #e5e5e5;
+    -fx-background-color: rgba(225,225,225,0.8);
+    -fx-background-radius: 0 8 0 8;
+    -fx-border-radius: 0 8 0 8;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+.table-view .table-row-cell {
+    -fx-border-width: 0;
+    -fx-border-color: #b2b2b2;
+    -fx-background-color: #b2b2b2;
+}
+.table-view .table-row-cell:selected {
+    -fx-background-color: gray;
+}
+
+.table-view .table-cell,
+.table-view .column-header-background .label {
+    -fx-font-size: 16;
+    -fx-wrap-text: true;
+    -fx-text-fill: #222;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.accordion .titled-pane > *.content{
+    -fx-background-color: #222222 ;
+}
+.accordion .titled-pane .title {
+    -fx-background-color: #b2b2b2 ;
+    -fx-font-family: "Roboto-Regular";
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-padding: 10px;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: #474747;
+    -fx-padding: 25px;
+}
+.spinner .decrement-arrow-button .decrement-arrow,
+.spinner .increment-arrow-button .increment-arrow {
+    -fx-background-color: #e5e5e5, #e5e5e5;
+}
+.spinner .text-field {
+    -fx-background-color: #474747;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: transparent;
+    -fx-text-fill: #e5e5e5;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+.spinner.split-arrows-horizontal .increment-arrow-button .increment-arrow {
+    -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em; /* 4 2 4 2 */
+    -fx-shape: "M 0 0 v 7 l 3.5 -4 z";
+}
+.spinner.split-arrows-horizontal .decrement-arrow-button .decrement-arrow {
+    -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em; /* 4 2 4 2 */
+    -fx-shape: "M 4 0 v 7 l -4 -3.5 z";
+}
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane .scroll-bar:horizontal,
+.scroll-pane .scroll-bar:vertical{
+    -fx-font-size: 1px;
+    -fx-background-color: transparent;
+}
+#teachersHb .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:vertical .thumb{
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb,
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: transparent;
+}
+.list-view .scroll-bar:horizontal,
+.table-view .scroll-bar:horizontal,
+.table-view .scroll-bar:vertical,
+.list-view .scroll-bar:vertical {
+    -fx-font-size: 1px;
+    -fx-background-color: transparent;
+}

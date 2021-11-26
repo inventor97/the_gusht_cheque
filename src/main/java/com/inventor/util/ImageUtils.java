@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class ImageUtils {
 
-    public ImageView createIcon(String iconURL, int width, int height) {
+    public static ImageView createIcon(String iconURL, int width, int height) {
         ImageView imageView = new ImageView();
         imageView.setImage(new Image(iconURL, width,height, false, false));
         return imageView;

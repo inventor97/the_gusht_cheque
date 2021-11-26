@@ -30,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -122,6 +123,9 @@ public class mainCtrl implements Initializable {
 
     @FXML
     private TableColumn<orderTableMap, FoodsEntity> foodClass;
+
+    @FXML
+    private TableColumn<orderTableMap, Button> editClm;
 
     @FXML
     private JFXButton OrderBtn;
@@ -407,6 +411,7 @@ public class mainCtrl implements Initializable {
         count.setCellValueFactory(new PropertyValueFactory<>("count"));
         sumPrice.setCellValueFactory(new PropertyValueFactory<>("sumPrice"));
         foodClass.setCellValueFactory(new PropertyValueFactory<>("foodClass"));
+        editClm.setCellValueFactory(new PropertyValueFactory<>("btn"));
 
         familyName.setCellValueFactory(new PropertyValueFactory<>("name"));
         foodClassFamily.setCellValueFactory(new PropertyValueFactory<>("foods"));
@@ -423,13 +428,27 @@ public class mainCtrl implements Initializable {
         }
     }
 
+
     private void setTableValues() {
         List<orderTableMap> ls = new ArrayList<>();
         final int[] order = {0};
         ordered.forEach(e -> {
             order[0]++;
-            ls.add(new orderTableMap().setValues(e, order[0]));
+            ls.add(new orderTableMap(e.getFood().getName()).setValues(e, order[0]));
         });
+
+        for (orderTableMap p : ls) {
+            p.getBtn().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    String txtName = p.getBtn().getText();
+                    ordered.removeIf(e -> e.getFood().getName().equals(txtName));
+                    setTableValues();
+                    calculateSumm();
+                }
+            });
+        }
+
         try {
             orderTable.getItems().clear();
             orderTable.setItems(FXCollections.observableArrayList(ls));
@@ -442,7 +461,7 @@ public class mainCtrl implements Initializable {
         orderTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (event.getClickCount() == 2) {
+                if (event.getButton() == MouseButton.PRIMARY) {
                     FoodsEntity obj = orderTable.getSelectionModel().getSelectedItem().getFoodClass();
                     int count = orderTable.getSelectionModel().getSelectedItem().getCount();
                     popBkg.setVisible(true);
@@ -458,6 +477,12 @@ public class mainCtrl implements Initializable {
                     selectedOrderPrice.setText(String.valueOf(obj.getPrice()));
                     spinnerUtil.setOnlyNumbers(selectedOrderSpinner, obj, count);
                 }
+//                else if (event.getButton() == MouseButton.SECONDARY){
+//                    FoodsEntity obj = orderTable.getSelectionModel().getSelectedItem().getFoodClass();
+//                    ordered.removeIf(e -> e.getFood().equals(obj));
+//                    setTableValues();
+//                    calculateSumm();
+//                }
             }
         });
         orderTable.setOnKeyPressed(new EventHandler<KeyEvent>() {

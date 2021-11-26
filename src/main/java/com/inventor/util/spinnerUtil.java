@@ -37,7 +37,10 @@ public class spinnerUtil {
             object.setCount((Integer) newValue);
             object.setFood(obj);
             mainCtrl.ordered.removeIf( e -> e.getFood().equals(obj));
-            mainCtrl.ordered.add(object);
+            int value = Integer.parseInt(String.valueOf(newValue));
+            if (value != 0) {
+                mainCtrl.ordered.add(object);
+            }
         });
         spinner.setEditable(true);
         spinner.getEditor().setTextFormatter(priceFormatter);

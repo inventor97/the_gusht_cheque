@@ -19,7 +19,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane fx:id="root" prefHeight="768.0" prefWidth="1366.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventor.controllers.mainCtrl">
    <children>
       <AnchorPane fx:id="bkg" disable="true" prefHeight="768.0" prefWidth="1366.0" />
@@ -172,23 +171,24 @@
                   </HBox>
                </children>
             </VBox>
-            <Label layoutX="596.0" layoutY="16.0" style="-fx-background-color: rgba(225,225,225,0.8); -fx-background-radius: 5 5 0 0; -fx-border-radius: 5 5 0 0;" text="Buyurtma">
+            <Label layoutX="533.0" layoutY="16.0" style="-fx-background-color: rgba(225,225,225,0.8); -fx-background-radius: 5 5 0 0; -fx-border-radius: 5 5 0 0;" text="Buyurtma">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <TableView fx:id="orderTable" layoutX="596.0" layoutY="47.0" prefHeight="500.0" prefWidth="455.0">
+            <TableView fx:id="orderTable" layoutX="533.0" layoutY="47.0" prefHeight="500.0" prefWidth="619.0">
               <columns>
                 <TableColumn fx:id="no" prefWidth="35.0" text="№" />
-                <TableColumn fx:id="orders" prefWidth="180.0" text="Buyurma" />
-                  <TableColumn fx:id="price" prefWidth="75.0" text="Narx" />
-                  <TableColumn fx:id="count" prefWidth="75.0" text="Soni" />
-                  <TableColumn fx:id="sumPrice" prefWidth="90.0" text="Summa" />
+                <TableColumn fx:id="orders" prefWidth="230.0" text="Buyurma" />
+                  <TableColumn fx:id="price" prefWidth="110.0" text="Narx" />
+                  <TableColumn fx:id="count" prefWidth="55.0" text="Soni" />
+                  <TableColumn fx:id="sumPrice" prefWidth="120.0" text="Summa" />
+                  <TableColumn fx:id="editClm" prefWidth="67.0" />
                   <TableColumn fx:id="foodClass" prefWidth="90.0" text="Summa" visible="false" />
               </columns>
             </TableView>
             <JFXButton fx:id="OrderBtn" layoutX="845.0" layoutY="668.0" onAction="#clickHandler" prefHeight="74.0" prefWidth="269.0" style="-fx-background-color: #e5e5e5; -fx-font-size: 32;" text="Buyurtma" />
-            <Label fx:id="sumUpPrice" alignment="CENTER_RIGHT" layoutX="714.0" layoutY="547.0" prefHeight="57.0" prefWidth="337.0" style="-fx-background-color: rgba(225,225,225,0.8); -fx-background-radius: 0 0 5 5; -fx-border-radius: 0 0 5 5; -fx-font-size: 32;" text="Umumiy:  0.0" textAlignment="RIGHT">
+            <Label fx:id="sumUpPrice" alignment="CENTER_RIGHT" layoutX="814.0" layoutY="547.0" prefHeight="57.0" prefWidth="337.0" style="-fx-background-color: rgba(225,225,225,0.8); -fx-background-radius: 0 0 5 5; -fx-border-radius: 0 0 5 5; -fx-font-size: 32;" text="Umumiy:  0.0" textAlignment="RIGHT">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>

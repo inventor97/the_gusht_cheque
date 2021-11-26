@@ -25,7 +25,7 @@ import java.util.Date;
 
 public class generateXlSXprinter {
 
-    private static Image logo = new Image("logo.jpg", 420,280,false,false);
+    private static Image logo = new Image("logo-head.jpg", 420,280,false,false);
 
     public static boolean saveSoldCheck(ClientEntity client, DeleveryService delivery, ObservableList<orderTableMap> foods) {
         StringBuilder val = new StringBuilder();
@@ -67,46 +67,49 @@ public class generateXlSXprinter {
             main.setCellValue(dataDate);
 
             Cell no = datRow1.createCell(1);
-            no.setCellStyle(style(workbook));
-            no.setCellValue("Tr:  ");
+            no.setCellStyle(style(workbook, HorizontalAlignment.RIGHT, false, 14));
+            no.setCellValue("Tr:  " + new Date().getTime());
 
             Row datRow3 = sheet.createRow(7);
-            datRow3.setHeight((short) 1860);
+            datRow3.setHeight((short) 1460);
             Cell date = datRow3.createCell(0);
-            date.setCellStyle(style(workbook));
-            date.setCellValue("The Go'sht\n" +
-                    "Manzil: Toshkent sh. Chilonzor t.\nIntegro 7 -qavat\n" +
-                    "Tel nomer: 99895 5137775");
-//todo address to'lidirish kerak
+            date.setCellStyle(style(workbook, HorizontalAlignment.CENTER, false, 15));
+            date.setCellValue("The Go'sht\nManzil: Toshkent sh. Qatortol-2\nMashrab k 1-m. 38\n+998993286619");
             Row datRow4 = sheet.createRow(11);
-            datRow4.setHeight((short) 1060);
+            datRow4.setHeight((short) 660);
             Cell date4 = datRow4.createCell(0);
-            date4.setCellStyle(titleStyle(workbook, 14, false));
-            date4.setCellValue("Hisob to'lov varag'i");
+            date4.setCellStyle(style(workbook, HorizontalAlignment.CENTER, true, 14));
+            date4.setCellValue("Hisob to'lov varog'i");
+            Cell data5 = datRow4.createCell(1);
+            data5.setCellStyle(style(workbook, HorizontalAlignment.CENTER, true, 14));
 
-            addRow(sheet, workbook, "Mijoz: ", client.getName(), 12);
-            addRow(sheet, workbook, "Mijoz tel raqami: ", client.getPhoneNumber(), 13);
-            StringBuilder orderedFood = new StringBuilder();
-            for (orderTableMap o : foods) {
-                orderedFood.append(o.toString());
-            }
+            addRow(sheet, workbook, "Mijoz: ", client.getName(), 12, 1, false, 15);
+            addRow(sheet, workbook, "Yetkazuvchi: ", "The Go'sht", 13, 1, false, 15);
+            addRow(sheet, workbook, "Buyurma:", "", 14, 1, true, 15);
             Double summ = 0.0;
             for (orderTableMap o : foods) {
                 summ += o.getCount()*o.getPrice();
             }
-            addRow(sheet, workbook, "Taom: " , orderedFood.toString(), 14);
-            addRow(sheet, workbook, "Summa: ", String.valueOf(summ), 15);
-            addRow(sheet, workbook, "Yetkazuvchi: ", delivery.getName(), 16);
-            addRow(sheet, workbook, "Yetkazuvhi tel-nomeri: ", delivery.getPhoneNumber(), 17);
-            addRow(sheet, workbook, "Izoh: ", "", 18);
+            int rowOrd = 15;
+            for (orderTableMap o : foods) {
+                addRow(sheet, workbook, o.getFoodName(), o.getCount()+ "*  " + o.getPrice(), rowOrd++, 2, false, 15);
+            }
+            addRow(sheet, workbook, "", "", rowOrd++,1,  true, 14);
+            addRow(sheet, workbook, "Buyurma summasi: ", String.valueOf(summ), rowOrd++, 1, false, 15);
+            addRow(sheet, workbook, "Yetkazish narxi: ", "15000", rowOrd++, 1, false, 15);
+            addRow(sheet, workbook, "Umumiy Summa: ",  String.valueOf(summ + 15000), rowOrd++, 1, false, 24);
+            addRow(sheet, workbook, "", "", rowOrd++,1,  true, 14);
+            addRow(sheet, workbook, "Mizoj manzili:", client.getAddress(), rowOrd++, 1, false, 15);
+            addRow(sheet, workbook, "Mizoj Telefon raqami:", client.getPhoneNumber(), rowOrd++, 1, false, 18);
 
-            Row bottom = sheet.createRow(46);
+            sheet.addMergedRegion(new CellRangeAddress(rowOrd + 28, rowOrd + 28, 0, 1));
+            Row bottom = sheet.createRow(rowOrd + 28);
             bottom.setHeight((short) 650);
             Cell btm = bottom.createCell(0);
             btm.setCellStyle(titleStyle(workbook, 12, true));
             btm.setCellValue("Yoqimli ishtaha");
 
-            setHeaderImages(workbook, sheet, qrCode, 0, 22);
+            setHeaderImages(workbook, sheet, qrCode, 0, rowOrd + 2);
 
             String xlsName = client.getName() + new Date().getTime();
             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath() + "/" + xlsName + ".xls");
@@ -121,19 +124,26 @@ public class generateXlSXprinter {
         return false;
     }
 
-    private static void addRow(HSSFSheet sheet, HSSFWorkbook workbook, String firstClm, String secondClm, int rowOrder) {
+    private static void addRow(HSSFSheet sheet, HSSFWorkbook workbook, String firstClm,
+                               String secondClm, int rowOrder, int alignment, boolean border, int size) {
         Row row = sheet.createRow(rowOrder);
         row.setHeight((short) -1);
         row.setRowStyle(rowStyle(workbook));
         row.setHeight((short)-1);
 
         Cell cell0 = row.createCell(0);
-        cell0.setCellStyle(mainStyle(workbook));
+        cell0.setCellStyle(style(workbook, HorizontalAlignment.LEFT, border, 15));
         cell0.setCellValue(firstClm);
 
-        Cell cell1 = row.createCell(1);
-        cell1.setCellStyle(style(workbook));
-        cell1.setCellValue(secondClm);
+        if (alignment == 1) {
+            Cell cell1 = row.createCell(1);
+            cell1.setCellStyle(style(workbook, HorizontalAlignment.RIGHT, border, size));
+            cell1.setCellValue(secondClm);
+        } else {
+            Cell cell1 = row.createCell(1);
+            cell1.setCellStyle(style(workbook, HorizontalAlignment.LEFT, border, size));
+            cell1.setCellValue(secondClm);
+        }
     }
 
     private static void setHeaderImages(HSSFWorkbook workbook, Sheet sheet, Image image, int col, int row){
@@ -163,22 +173,24 @@ public class generateXlSXprinter {
         sheet.addMergedRegion(new CellRangeAddress(3, 3, 2, 5));
         sheet.addMergedRegion(new CellRangeAddress(7, 10, 0, 1));
         sheet.addMergedRegion(new CellRangeAddress(11, 11, 0, 1));
-        sheet.addMergedRegion(new CellRangeAddress(46, 46, 0, 1));
 
-        sheet.setColumnWidth(0, 5730);
-        sheet.setColumnWidth(1, 9980);
+        sheet.setColumnWidth(0, 9730);
+        sheet.setColumnWidth(1, 5980);
     }
 
-    private static CellStyle style(HSSFWorkbook workbook) {
+    private static CellStyle style(HSSFWorkbook workbook, HorizontalAlignment align, boolean border, int size) {
         CellStyle st = workbook.createCellStyle();
+        if (border){
+            st.setBorderBottom(BorderStyle.DASH_DOT);
+        }
         st.setWrapText(true);
         Font newFont = workbook.createFont();
         newFont.setBold(true);
         st.setWrapText(true);
-        newFont.setFontName("Poppins");
-        newFont.setFontHeightInPoints((short) 15);
+        newFont.setFontName("Century Gothic");
+        newFont.setFontHeightInPoints((short) size);
         st.setFont(newFont);
-        st.setAlignment(HorizontalAlignment.RIGHT);
+        st.setAlignment(align);
         st.setVerticalAlignment(VerticalAlignment.CENTER);
         return st;
     }
@@ -195,7 +207,7 @@ public class generateXlSXprinter {
         newFont.setBold(true);
         st.setWrapText(true);
         newFont.setItalic(false);
-        newFont.setFontName("Poppins");
+        newFont.setFontName("Roboto-Regular");
         newFont.setFontHeightInPoints((short) 15);
         st.setFont(newFont);
         return st;
@@ -208,7 +220,7 @@ public class generateXlSXprinter {
         newFont.setBold(true);
         st.setWrapText(true);
         newFont.setItalic(italic);
-        newFont.setFontName("Poppins");
+        newFont.setFontName("Century Gothic");
         newFont.setFontHeightInPoints((short) size);
         st.setFont(newFont);
         st.setAlignment(HorizontalAlignment.CENTER);
